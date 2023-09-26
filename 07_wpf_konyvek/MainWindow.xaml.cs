@@ -22,11 +22,16 @@ namespace _07_wpf_konyvek
     public partial class MainWindow : Window
     {
         List<Book> books = new List<Book>();
+        List<string> authors = new List<string>();
 
         public MainWindow()
         {
             InitializeComponent();
             loadBooks();
+            loadAuthors();
+
+            CBO_authors.ItemsSource = authors;
+            CBO_authors.SelectedIndex = 0;
         }
 
         private void loadBooks()
@@ -35,6 +40,18 @@ namespace _07_wpf_konyvek
             {
                 books.Add(new Book(row));
             }
+        }
+
+        private void loadAuthors()
+        {
+            foreach (var oneBook in books)
+            {
+                if (!authors.Contains(oneBook.author))
+                {
+                    authors.Add(oneBook.author);
+                }
+            }
+            authors.Sort(); // rendezés
         }
     }
 }
